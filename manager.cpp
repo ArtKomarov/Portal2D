@@ -4,26 +4,14 @@
 #include "manager.h"
 #include "graphics.h"
 
-Manager::Manager() :
-    hero_(),
-    gr_(nullptr),
+
+Manager::Manager(sf::Texture* GlobalTexture, Hero* hero,
+                 std::map<const char*, Boundary*>* boundaries, std::map<std::string, GrElem *> *grElements,
+                 sf::Sprite *windowSprite, unsigned int WindowSize) :
+    hero_(hero),
+    boundaries_(boundaries),
+    gr_(new graphics(grElements, GlobalTexture, windowSprite, WindowSize)),
     clock_() {
-
-    // Create boundaries
-    Boundary *b1 = new Boundary(0, new sf::RectangleShape(sf::Vector2f(100, 100)), nullptr);
-    boundaries_.insert(std::make_pair("Boundary_1", b1));
-
-    // Set graphical elements
-    std::map <std::string, GrElem*> *GrElements = new std::map<std::string, GrElem*>();
-    GrElements->insert(std::make_pair("Hero", &hero_));
-
-    for(auto &elem : boundaries_) {
-        GrElements->insert(std::make_pair(elem.first, static_cast<GrElem*>(elem.second)));
-    }
-
-    // Create graphics module
-    gr_ = new graphics(*GrElements);
-
 }
 
 Manager::~Manager() {
@@ -51,9 +39,15 @@ void Manager::GameLoop() {
 //            default:
 //                break;
 //            }
-            if(hero_.EventHendler(event))
+            if(hero_->EventHendler(event))
                 continue;
-            if(event.type == sf::Event::Closed) {
+            if(gr_->EventHendler(event))
+                continue;
+            if(event.type == sf::Event::KeyPressed) {
+                if(event.key.code == sf::Keyboard::Escape)
+                    gr_->CloseWindow();
+            }
+            else if(event.type == sf::Event::Closed) {
                 gr_->CloseWindow();
             }
 

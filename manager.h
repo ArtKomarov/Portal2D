@@ -8,13 +8,16 @@
 
 
 class Manager {
-    Hero      hero_;
-    std::map<const char*, Boundary*> boundaries_;
+    Hero*     hero_;
+
+    std::map<const char*, Boundary*>* boundaries_;
+
     graphics*  gr_;
     sf::Clock clock_;
 public:
     // Constructors/Destructor
-    Manager();
+    Manager(sf::Texture *GlobalTexture, Hero* hero, std::map<const char*, Boundary*>* boundaries,
+            std::map <std::string, GrElem*> *grElements, sf::Sprite *windowSprite, unsigned int WindowSize = 1000);
     ~Manager();
 
     // Main loop
