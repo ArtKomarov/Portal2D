@@ -4,27 +4,33 @@
 #include <map>
 
 #include "graphics.h"
+#include "physics.h"
+
 #include "hero.h"
 
 
 class Manager {
-    Hero*     hero_;
-
-    std::map<const char*, Boundary*>* boundaries_;
-
-    graphics*  gr_;
-    sf::Clock clock_;
+    graphics graphics_;
+    physics  physics_;
 public:
     // Constructors/Destructor
-    Manager(sf::Texture *GlobalTexture, Hero* hero, std::map<const char*, Boundary*>* boundaries,
-            std::map <std::string, GrElem*> *grElements, sf::Sprite *windowSprite, unsigned int WindowSize = 1000);
-    ~Manager();
+    //Manager(sf::Texture *GlobalTexture, Hero* hero, std::map<const char*, Boundary*>* boundaries,
+    //        std::map <std::string, GrElem*> *grElements, sf::Sprite *windowSprite, unsigned int WindowSize = 1000);
+    /// Constructor
+    Manager (std::vector<GrElem*>* graphicalElems, std::vector<PhysElem*>* physicalElems,
+             sf::RenderWindow* window, sf::Sprite* background);
 
-    // Main loop
-    void GameLoop();
+    /// Destructor
+    ~Manager ();
 
-    void KeyPressedHandler(const sf::Event& event);
-    void KeyNotPressedHandler();
+    /// Main loop
+    void gameLoop();
+
+    /// Handle all events
+    void eventHandling();
+
+    //void KeyPressedHandler(const sf::Event& event);
+    //void KeyNotPressedHandler();
 };
 
 #endif // MANAGER_H
