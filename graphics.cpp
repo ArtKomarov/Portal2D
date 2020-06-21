@@ -30,7 +30,7 @@ const char FINISH_AUDIO_PATH[] = "/home/artem/Main/Games/Portal2D/DidIt.wav";
 
 //    shape_.setFillColor(sf::Color::Green);
 
-//    std::cout << "Here" << std::endl;
+//    cout << "Here" << std::endl;
 //    //hero_.setColor(sf::Color(255, 0, 0));
 //    //window_->draw(hero_.GetSprite());
 //    this->UpdateWindow();
@@ -269,7 +269,7 @@ void graphics::Placement() {
 
 // Update window and graphical elements
 void graphics::Update() {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    //std::cout << __PRETTY_FUNCTION__ << std::endl;
 
     // Set background
     if(background_)

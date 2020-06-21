@@ -21,6 +21,7 @@ enum {
 
 class Portal : public PhysElem {
     int Type_;
+    int portSide_;
 
     sf::IntRect NotExistRect_;
     sf::IntRect StayRect_;
@@ -49,9 +50,11 @@ public:
     void setPortal2 (Portal* portal2);
 
     /// Getters
+    int getPortSide () const;
 
     /// Override physical functions
-    void         Action () override;
+    void          Action () override;
+    sf::FloatRect getGlobalBounds() const override;
     //sf::Vector2i Move   () override;
 
     /// Handle mouse click

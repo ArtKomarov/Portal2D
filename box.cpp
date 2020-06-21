@@ -17,6 +17,8 @@ void Box::Intersect(GrElem &elem, sf::Vector2u windowSize) {
     }
 }
 
+
+
 sf::FloatRect Box::getGlobalBounds() const {
     if(sprite_->getGlobalBounds().width > 10)
         return sf::FloatRect(sprite_->getGlobalBounds().left + 5,
@@ -26,3 +28,4 @@ sf::FloatRect Box::getGlobalBounds() const {
     else
         return PhysElem::getGlobalBounds();
 }
+

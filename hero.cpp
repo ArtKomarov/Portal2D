@@ -88,14 +88,15 @@ void Hero::Action() {
 
     PhysElem::Action();
 
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-    std::cout << "SpeedX = " << speedX_ << ", SpeedY = " << speedY_ << std::endl;
-    std::cout << "AccelX = " << accelX_ << ", AccelY = " << accelY_ << std::endl;
+    //std::cout << __PRETTY_FUNCTION__ << std::endl;
+    //std::cout << "SpeedX = " << speedX_ << ", SpeedY = " << speedY_ << std::endl;
+    //std::cout << "AccelX = " << accelX_ << ", AccelY = " << accelY_ << std::endl;
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) && !block_.bot_) {
         std::cout << "S" << std::endl;
 
         this->Stop();
+        speedX_ = 0;
     }
 
     if(sf::Keyboard::isKeyPressed (sf::Keyboard::W) && speedY_ == 0
@@ -109,7 +110,7 @@ void Hero::Action() {
     }
 
 
-    if(sf::Keyboard::isKeyPressed (sf::Keyboard::D) && !block_.right_) {
+    if(sf::Keyboard::isKeyPressed (sf::Keyboard::D) && !block_.right_ && (speedX_ >= 0 || speedY_ == 0)) {
         std::cout << "D" << std::endl;
 
         block_ = false;
@@ -117,7 +118,7 @@ void Hero::Action() {
         speedX_ = defSpeedX_;
     }
 
-    if(sf::Keyboard::isKeyPressed (sf::Keyboard::A) && !block_.left_) {
+    if(sf::Keyboard::isKeyPressed (sf::Keyboard::A) && !block_.left_ && (speedX_ <= 0 || speedY_ == 0)) {
         std::cout << "A" << std::endl;
 
         block_ = false;
@@ -134,6 +135,9 @@ sf::Vector2i Hero::Move() {
 
     sf::Vector2i offset = PhysElem::Move();
 
+    if(speedX_ == 0 && speedY_ == 0)
+        this->Stop();
+
     if(offset.x != 0)
         moveCounterX++;
     else
@@ -144,8 +148,8 @@ sf::Vector2i Hero::Move() {
     else
         moveCounterY = 0;
 
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-    std::cout << "Offset, move counters" << offset.x << " " << moveCounterX << ", " << offset.y << " " << moveCounterY << std::endl;
+    //std::cout << __PRETTY_FUNCTION__ << std::endl;
+    //std::cout << "Offset, move counters" << offset.x << " " << moveCounterX << ", " << offset.y << " " << moveCounterY << std::endl;
 
     if((offset.x == 0 || moveCounterX < 1000 / std::abs(speedX_)) && (offset.y == 0 || moveCounterY < 1000 / std::abs(speedY_))) {
         offset.x = 0;
@@ -173,7 +177,7 @@ sf::Vector2i Hero::Move() {
     int left = 0;
 
     if(offset.y < 0) {
-        std::cout << "Move up" << std::endl;
+        //std::cout << "Move up" << std::endl;
 
         if(offset.x < 0 || (offset.x == 0 && lastMove_.x < 0))
             left = texture_->getSize().x - HERO_WIDTH - JUMP_SPRITE_LEFT_OFFSET;
@@ -269,13 +273,21 @@ sf::Vector2i Hero::Move() {
 
 void Hero::Intersect(GrElem &elem, sf::Vector2u windowSize) {
     if(dynamic_cast<Boundary*>(&elem) != nullptr) {
-        pushOff(*this, elem, windowSize);
+        int side = getPushSide(*this, elem, windowSize);
+        pushToSide(*this, elem, side);
+        if(side == UP) {
+            if(speedX_ > 0 && speedX_ != defSpeedX_)
+                speedX_ = defSpeedX_;
+
+            if(speedX_ < 0 && speedX_ != -defSpeedX_)
+                speedX_ = -defSpeedX_;
+        }
     }
 }
 
 /// Stop hero
 void Hero::Stop() {
-    std::cout << "Stop" << std::endl;
+    //std::cout << "Stop" << std::endl;
     // Set sprite stay area
     int left = 0;
     int top  = 0;
@@ -300,7 +312,11 @@ void Hero::Stop() {
 void Hero::eventHendler(const sf::Event &event, const sf::Vector2f &mousePos) {
     switch (event.type) {
     case sf::Event::KeyReleased:
-        if(event.key.code == sf::Keyboard::A || event.key.code == sf::Keyboard::D) {
+        if(event.key.code == sf::Keyboard::A && speedX_ < 0) {
+            this->Stop();
+            speedX_ = 0;
+        }
+        else if(event.key.code == sf::Keyboard::D && speedX_ > 0) {
             this->Stop();
             speedX_ = 0;
         }

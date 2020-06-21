@@ -74,7 +74,10 @@ public:
 
     /// Getters
     //int GetMoveAbility () const;
-    bool getBlock (int side = DOWN);
+    bool getBlock (int side = DOWN) const;
+
+    sf::Vector2f getSpeed() const;
+    sf::Vector2f getAccel() const;
 
     //              Override graphical part             //
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
@@ -127,5 +130,7 @@ void pushOff (PhysElem &this_elem, GrElem& elem, sf::Vector2u windowSize);
 void getDistances (PhysElem &this_elem, GrElem &elem, sf::Vector2u &windowSize, float& LDist, float& RDist, float& TDist, float& BDist);
 
 int getPushSide (PhysElem &this_elem, GrElem &elem, sf::Vector2u &windowSize);
+
+void pushToSide (PhysElem &this_elem, GrElem &elem, int side);
 
 #endif // PHYSELEM_H

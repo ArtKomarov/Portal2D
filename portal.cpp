@@ -24,6 +24,7 @@ const char ORANGE_AUDIO_PATH[] = "/home/artem/Main/Games/Portal2D/OrangeFire.wav
 Portal::Portal(int type, sf::Texture* texture, sf::Sprite* sprite, Hero *hero) :
     PhysElem(texture, sprite),
     Type_        (type),
+    portSide_    (0),
     hero_        (hero),
     State_       (-1),
     defSpeed_    (1000) {
@@ -60,6 +61,10 @@ void Portal::setPortal2(Portal *portal2) {
     port2_ = portal2;
 }
 
+int Portal::getPortSide() const {
+    return portSide_;
+}
+
 void Portal::Action() {
     accelX_ = 0;
     accelY_ = 0;
@@ -93,6 +98,19 @@ void Portal::Action() {
 
 }
 
+sf::FloatRect Portal::getGlobalBounds() const {
+    if(State_ == MOVE) {
+        return sf::FloatRect(
+                    sprite_->getGlobalBounds().left,
+                    sprite_->getGlobalBounds().top + 8,
+                    sprite_->getGlobalBounds().width,
+                    sprite_->getGlobalBounds().height - 16
+                    );
+    }
+    else
+    return sprite_->getGlobalBounds();
+}
+
 
 void Portal::eventHendler(const sf::Event &event, const sf::Vector2f& mousePos) {
     if(event.type == sf::Event::MouseButtonPressed) {
@@ -116,7 +134,8 @@ void Portal::eventHendler(const sf::Event &event, const sf::Vector2f& mousePos) 
             //if(State_ == STAY)
             //    sprite_->move(sf::Vector2f(0, -(StayRect_.height - MoveRect_.height) / 2));
 
-            State_ = MOVE;
+            State_    = MOVE;
+            portSide_ = STAY;
 
             fireSound_.play();
 
@@ -160,6 +179,8 @@ void Portal::Intersect(GrElem &elem, sf::Vector2u windowSize) {
                 //else if(BDist <= LDist && BDist <= RDist && BDist <= TDist)
                 //    MoveSide = DOWN;
 
+                portSide_ = getPushSide(*this, elem, windowSize);
+
                 State_ = STAY;
             }
             else {
@@ -201,14 +222,58 @@ void Portal::Intersect(GrElem &elem, sf::Vector2u windowSize) {
         Hero* hero;
         IF_CLASS(Hero, hero, elem) {
             if(port2_->State_ == STAY && static_cast<GrElem*>(hero_) == &elem) {
-                elem.setPosition(sf::Vector2f(port2_->getGlobalBounds().left + port2_->getGlobalBounds().width / 2 - hero_->getGlobalBounds().width / 2,
-                                              port2_->getGlobalBounds().top + port2_->getGlobalBounds().height / 2 - hero_->getGlobalBounds().height / 2));
+                sf::Vector2f newPosition(port2_->getGlobalBounds().left + port2_->getGlobalBounds().width / 2 - hero_->getGlobalBounds().width / 2,
+                                         port2_->getGlobalBounds().top + port2_->getGlobalBounds().height / 2 - hero_->getGlobalBounds().height / 2);
+                switch (port2_->portSide_) {
+                case LEFT:
+                    newPosition.x = port2_->getPosition().x - (hero_->getGlobalBounds().width - port2_->getGlobalBounds().width);
+                    break;
+                case RIGHT:
+                    newPosition.x = port2_->getPosition().x;
+                    break;
+                case UP:
+                    newPosition.y = port2_->getPosition().y - (hero_->getGlobalBounds().height - port2_->getGlobalBounds().height);
+                    break;
+                case DOWN:
+                    newPosition.y = port2_->getPosition().y;
+                default:
+                    break;
+                }
+
+                //hero_->setPosition(sf::Vector2f(port2_->getGlobalBounds().left + port2_->getGlobalBounds().width / 2 - hero_->getGlobalBounds().width / 2,
+                //                              port2_->getGlobalBounds().top + port2_->getGlobalBounds().height / 2 - hero_->getGlobalBounds().height / 2));
+
+                hero_->setPosition(newPosition);
 
                 hero_->setAccelX(0);
                 hero_->setAccelY(0);
 
-                if(hero_->getLastMove().y > 0)
-                    hero_->setSpeedY(0);
+                float enterSpeed;
+                if(portSide_ == LEFT || portSide_ == RIGHT)
+                    enterSpeed = std::abs(hero_->getSpeed().x);
+                else
+                    enterSpeed = std::abs(hero_->getSpeed().y);
+
+                hero_->setSpeedX(0);
+                hero_->setSpeedY(0);
+
+                switch (port2_->portSide_) {
+                case LEFT:
+                    hero_->setSpeedX(-enterSpeed);
+                    break;
+                case RIGHT:
+                    hero_->setSpeedX(enterSpeed);
+                    break;
+                case UP:
+                    hero_->setSpeedY(-enterSpeed);
+                    break;
+                case DOWN:
+                    hero_->setSpeedY(enterSpeed);
+                    break;
+                default:
+                    break;
+                }
+
 
                 port2_->State_ = NOTCARYY;
             }
@@ -234,9 +299,6 @@ void Portal::Intersect(GrElem &elem, sf::Vector2u windowSize) {
 //    return sprite_->getPosition();
 //}
 
-//sf::FloatRect Portal::GetGlobalBounds() const {
-//    return sprite_->getGlobalBounds();
-//}
 
 
 

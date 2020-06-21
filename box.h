@@ -15,6 +15,9 @@ public:
 
     /// Overrude get global bounds for pretty moving
     sf::FloatRect getGlobalBounds() const override;
+
+
+    //sf::Vector2i Move   () override;
 };
 
 #endif // BOX_H

@@ -28,6 +28,8 @@ void Manager::gameLoop() {
     //sf::Time elapsed;
     //bool HeroRun; // Did hero run in this loop?
 
+    sf::Clock loopClock;
+
     graphics_.Start();
 
     physics_.Start();
@@ -55,6 +57,7 @@ void Manager::gameLoop() {
             //graphics_.closeWindow();
             break;
         }
+        std::cout << "Loop time:" << loopClock.restart().asMicroseconds() / 1e6;
     }
 
     graphics_.Finish();

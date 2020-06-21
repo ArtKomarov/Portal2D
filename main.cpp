@@ -69,6 +69,13 @@ int main() {// door 330x200
     GrElems->push_back(box);
     PhysElems->push_back(box);
 
+    // Simple object 2
+    sf::Sprite* box_sprite2 = new sf::Sprite(boxTexture, sf::IntRect(0, 0, 50, 50));
+    Box* box2 = new Box(&boxTexture, box_sprite2);
+    box2->setPosition(sf::Vector2f(200, 0));
+    GrElems->push_back(box2);
+    PhysElems->push_back(box2);
+
     // Init hero
     sf::Texture HeroTexture;
     sf::Sprite  HeroSprite;
@@ -85,25 +92,6 @@ int main() {// door 330x200
     hero->setPosition(sf::Vector2f(window.getSize().x / 5, window.getSize().y - 300));
     // push after portals
 
-    // Init portals
-    sf::Sprite* p1_sprite = new sf::Sprite(globalTexture, sf::IntRect(190, 27, 10, 30));
-    Portal* portal1 = new Portal(BLUE, &globalTexture, p1_sprite, hero);
-
-    sf::Sprite* p2_sprite = new sf::Sprite(globalTexture, sf::IntRect(190, 27, 10, 30));
-    Portal* portal2 = new Portal(ORANGE, &globalTexture, p2_sprite, hero);
-
-    portal1->setPortal2(portal2);
-    portal2->setPortal2(portal1);
-
-    PhysElems->push_back(portal1);
-    PhysElems->push_back(portal2);
-
-    GrElems->push_back(portal1);
-    GrElems->push_back(portal2);
-
-    GrElems->push_back(hero);
-    PhysElems->push_back(hero);
-
 
     // Create boundaries
     sf::Texture b_texture;
@@ -116,7 +104,7 @@ int main() {// door 330x200
 
     Boundary*   b1        = nullptr;
     sf::Sprite* b1_sprite = nullptr;
-    CreateBoundary(b1, BLACK_BOUNDARY, b1_sprite, &b_texture, window.getSize().x, 100,
+    CreateBoundary(b1, WHITE_BOUNDARY, b1_sprite, &w_texture, window.getSize().x, 100,
                    0, window.getSize().y - 100, GrElems);
 
     Boundary*   b2        = nullptr;
@@ -174,6 +162,25 @@ int main() {// door 330x200
     CreateBoundary(b10, BLACK_BOUNDARY, b10_sprite, &b_texture, 20, window.getSize().y / 2 - 50,
                    window.getSize().x / 2, window.getSize().y / 2 - 50, GrElems);
 
+    // Init portals
+    sf::Sprite* p1_sprite = new sf::Sprite(globalTexture, sf::IntRect(190, 27, 10, 30));
+    Portal* portal1 = new Portal(BLUE, &globalTexture, p1_sprite, hero);
+
+    sf::Sprite* p2_sprite = new sf::Sprite(globalTexture, sf::IntRect(190, 27, 10, 30));
+    Portal* portal2 = new Portal(ORANGE, &globalTexture, p2_sprite, hero);
+
+    portal1->setPortal2(portal2);
+    portal2->setPortal2(portal1);
+
+    PhysElems->push_back(portal1);
+    PhysElems->push_back(portal2);
+
+    GrElems->push_back(portal1);
+    GrElems->push_back(portal2);
+
+    GrElems->push_back(hero);
+    PhysElems->push_back(hero);
+
 
 //    sf::Sprite b4_sprite(w_texture, sf::IntRect(0, 0, 10, window.getSize().y));
 //    Boundary b4(BLACK_BOUNDARY, &w_texture, &b4_sprite);
@@ -207,13 +214,13 @@ int main() {// door 330x200
 
     //Manager manager(GlobalTexture, hero, boundaries, GrElements, windowSprite, WINDOW_SIZE);
 
-    sf::SoundBuffer buffer;
-    if (!buffer.loadFromFile(AUDIO_PATH))
-        return -1;
+//    sf::SoundBuffer buffer;
+//    if (!buffer.loadFromFile(AUDIO_PATH))
+//        return -1;
 
-    sf::Sound sound(buffer);
-    sound.setLoop(true);
-    sound.play();
+//    sf::Sound sound(buffer);
+//    sound.setLoop(true);
+//    sound.play();
 
     manager.gameLoop();
 
@@ -232,10 +239,10 @@ int main() {// door 330x200
 
 void CreateBoundary(Boundary* b, int type, sf::Sprite* sprite, sf::Texture* texture, int width, int height,
                     float posX, float posY, std::vector<GrElem*>* container) {
+
     sprite = new sf::Sprite(*texture, sf::IntRect(0, 0, width, height));
 
     b = new Boundary(type, texture, sprite);
-
     b->setPosition(sf::Vector2f(posX, posY));
 
     container->push_back(b);

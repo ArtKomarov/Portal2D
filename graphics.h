@@ -17,7 +17,7 @@
 
 class graphics {
     sf::RenderWindow* window_; // main window
-    sf::Sprite*       background_;
+    sf::Sprite*       background_; // background sprite
 
     // All graphical parts of elements
     std::vector<GrElem*>* elements_;

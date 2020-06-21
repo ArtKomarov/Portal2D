@@ -16,15 +16,15 @@ void physics::Start() {
 }
 
 void physics::Activities() {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-    int counter = 0;
+    //std::cout << __PRETTY_FUNCTION__ << std::endl;
+    //int counter = 0;
 
     for(auto& elem : *elements_) {
         if(elem->getActive()) {
-            std::cout << "in gravity for, iter " << counter << std::endl;
+            //std::cout << "in gravity for, iter " << counter << std::endl;
             if(!elem->getBlock()) {
                 elem->setAccelY(accelOfGravity_); // a = g
-                std::cout << "in if, iter " << counter << std::endl << std::endl;
+                //std::cout << "in if, iter " << counter << std::endl << std::endl;
             }
             else {
                 elem->setAccelY(0); // ground, ma = sum(F) = F - N = 0 => a = 0
@@ -32,7 +32,7 @@ void physics::Activities() {
         }
     }
 
-    counter = 0;
+    //counter = 0;
 
     // Main elements actions
     bool Continue = true;
@@ -64,7 +64,7 @@ void physics::Movement() {
 void physics::eventHandling(const sf::Event &event, const sf::Vector2f& mousePosition) {
     int i = 0;
     for(auto& elem : *elements_) {
-        std::cout << __PRETTY_FUNCTION__ << i << std::endl;
+        //std::cout << __PRETTY_FUNCTION__ << i << std::endl;
         elem->eventHendler(event, mousePosition);
     }
 }
