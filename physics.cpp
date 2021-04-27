@@ -62,7 +62,6 @@ void physics::Movement() {
 }
 
 void physics::eventHandling(const sf::Event &event, const sf::Vector2f& mousePosition) {
-    int i = 0;
     for(auto& elem : *elements_) {
         //std::cout << __PRETTY_FUNCTION__ << i << std::endl;
         elem->eventHendler(event, mousePosition);

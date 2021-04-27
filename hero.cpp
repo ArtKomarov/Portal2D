@@ -126,6 +126,14 @@ void Hero::Action() {
         speedX_ = -defSpeedX_;
     }
 
+    if(block_.bot_
+            && !sf::Keyboard::isKeyPressed (sf::Keyboard::A)
+            && !sf::Keyboard::isKeyPressed (sf::Keyboard::D)
+            && !sf::Keyboard::isKeyPressed (sf::Keyboard::W)) {
+        this->Stop();
+        speedX_ = 0;
+    }
+
 }
 
 sf::Vector2i Hero::Move() {
@@ -285,7 +293,7 @@ void Hero::Intersect(GrElem &elem, sf::Vector2u windowSize) {
     }
 }
 
-/// Stop hero
+// Stop hero
 void Hero::Stop() {
     //std::cout << "Stop" << std::endl;
     // Set sprite stay area
@@ -301,16 +309,44 @@ void Hero::Stop() {
     sprite_->setTextureRect(sf::IntRect(left, top, HERO_WIDTH, HERO_HEIGHT));
 }
 
-//const sf::Vector2f Hero::GetLegPosition() {
-//    return sf::Vector2f(sprite_.getPosition().x, sprite_.getPosition().y - 30);
-//}
-
-//const sf::Sprite& Hero::GetSprite() const {
-//    return sprite_;
-//}
-
 void Hero::eventHendler(const sf::Event &event, const sf::Vector2f &mousePos) {
     switch (event.type) {
+//    case sf::Event::KeyPressed:
+//        if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) && !block_.bot_) {
+//            std::cout << "S" << std::endl;
+
+//            this->Stop();
+//            speedX_ = 0;
+//        }
+
+//        if(sf::Keyboard::isKeyPressed (sf::Keyboard::W) && speedY_ == 0
+//                && accelY_ == 0 && block_.bot_ && !block_.top_) { // key pressed + no double jump + earth + can jump
+//            std::cout << "W" << std::endl;
+
+//            block_ = false;
+
+//            speedY_ = -defSpeedY_;
+
+//        }
+
+
+//        if(sf::Keyboard::isKeyPressed (sf::Keyboard::D) && !block_.right_) {
+//            std::cout << "D" << std::endl;
+
+//            block_ = false;
+
+//            speedX_ = defSpeedX_;
+//        }
+
+//        if(sf::Keyboard::isKeyPressed (sf::Keyboard::A) && !block_.left_) {
+//            std::cout << "A" << std::endl;
+
+//            block_ = false;
+
+//            speedX_ = -defSpeedX_;
+//        }
+
+//        break;
     case sf::Event::KeyReleased:
         if(event.key.code == sf::Keyboard::A && speedX_ < 0) {
             this->Stop();

@@ -12,8 +12,11 @@ void Box::Intersect(GrElem &elem, sf::Vector2u windowSize) {
         pushOff(*this, elem, windowSize);
     }
     else {
-        pushOff(*this, elem, windowSize);
-        block_ = false;
+        PhysElem* p = nullptr;
+        IF_CLASS(PhysElem, p, elem) {
+            pushOff(*this, elem, windowSize);
+            block_ = false;
+        }
     }
 }
 

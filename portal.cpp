@@ -131,6 +131,18 @@ void Portal::eventHendler(const sf::Event &event, const sf::Vector2f& mousePos) 
             if(speedX * lastMove.x < 0)
                 return;
 
+//            if(speedX * lastMove.x < 0) {
+//                sf::Vector2f heroSpeed = hero_->getSpeed();
+
+//                hero_->setSpeedX(speedX / std::abs(speedX));
+//                hero_->setSpeedY(0);
+
+//                hero_->Move();
+
+//                hero_->setSpeedX(heroSpeed.x);
+//                hero_->setSpeedY(heroSpeed.y);
+//            }
+
             //if(State_ == STAY)
             //    sprite_->move(sf::Vector2f(0, -(StayRect_.height - MoveRect_.height) / 2));
 
@@ -185,6 +197,7 @@ void Portal::Intersect(GrElem &elem, sf::Vector2u windowSize) {
             }
             else {
                 State_ = NOTEXIST;
+                sprite_->setTextureRect(NotExistRect_);
             }
 
             speedX_ = 0;

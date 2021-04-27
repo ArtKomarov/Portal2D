@@ -304,7 +304,7 @@ void pushOff(PhysElem &this_elem, GrElem &elem, sf::Vector2u windowSize) {
     //this->Stop();
 }
 
-void getDistances (PhysElem& this_elem, GrElem &elem, sf::Vector2u& windowSize, float& LDist, float& RDist, float& TDist, float& BDist) {
+void getDistances (PhysElem& this_elem, GrElem &elem, float& LDist, float& RDist, float& TDist, float& BDist) {
     LDist = this_elem.getGlobalBounds().left - elem.getGlobalBounds().left      + this_elem.getGlobalBounds().width;
     RDist = elem.getGlobalBounds().left      - this_elem.getGlobalBounds().left + elem.getGlobalBounds().width;
     TDist = this_elem.getGlobalBounds().top  - elem.getGlobalBounds().top       + this_elem.getGlobalBounds().height;
@@ -325,7 +325,7 @@ int getPushSide(PhysElem& this_elem, GrElem &elem, sf::Vector2u &windowSize) {
 
     float LDist, RDist, TDist, BDist;
 
-    getDistances(this_elem, elem, windowSize, LDist, RDist, TDist, BDist);
+    getDistances(this_elem, elem, LDist, RDist, TDist, BDist);
 
     if(this_elem.getSpeed().x != 0) {
         if(this_elem.getSpeed().x > 0)

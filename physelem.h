@@ -127,7 +127,7 @@ public:
 /// Default kind of intersection
 void pushOff (PhysElem &this_elem, GrElem& elem, sf::Vector2u windowSize);
 
-void getDistances (PhysElem &this_elem, GrElem &elem, sf::Vector2u &windowSize, float& LDist, float& RDist, float& TDist, float& BDist);
+void getDistances (PhysElem &this_elem, GrElem &elem, float& LDist, float& RDist, float& TDist, float& BDist);
 
 int getPushSide (PhysElem &this_elem, GrElem &elem, sf::Vector2u &windowSize);
 
