@@ -173,13 +173,15 @@ Manager manager(GrElems, PhysElems, &window, WindowSprite);
 //Manager manager(GlobalTexture, hero, boundaries, GrElements, windowSprite, WINDOW_SIZE);
 
 sf::SoundBuffer buffer;
+sf::Sound sound;
+
 if (buffer.loadFromFile(AUDIO_PATH)) {
     // ! return -1;
-
-    sf::Sound sound(buffer);
+    sound.setBuffer(buffer);
     sound.setLoop(true);
     sound.play();
 }
+
 
 manager.gameLoop();
 
