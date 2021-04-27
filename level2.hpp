@@ -1,21 +1,21 @@
 #ifndef LEVEL2_HPP
 #define LEVEL2_HPP
 
-const char AUDIO_PATH[] = "/home/artem/Main/Games/Portal2D/Portal2-04-The_Courtesy_Call.ogg";
+const char AUDIO_PATH[] = "../Portal2-04-The_Courtesy_Call.ogg";
 
-const char GLOBAL_TEXTURE_PATH[] = "/home/artem/Main/Games/Portal2D/Stuff.png";
+const char GLOBAL_TEXTURE_PATH[] = "../Stuff.png";
 
-const char PORT_AND_DOOR_TEXTURE_PATH[] = "/home/artem/Main/Games/Portal2D/Portals_Doors2.png";
+const char PORT_AND_DOOR_TEXTURE_PATH[] = "/Portals_Doors2.png";
 
-const char WINDOW_TEXTURE_PATH[] = "/home/artem/Main/Games/Portal2D/Background2/Background2.png";
+const char WINDOW_TEXTURE_PATH[] = "../Background2/Background2.png";
 
-const char HERO_TEXTURE_PATH[] = "/home/artem/Main/Games/Portal2D/HeroRunSprite.png";
+const char HERO_TEXTURE_PATH[] = "../HeroRunSprite.png";
 
-const char WHITE_WALL_PATH[] = "/home/artem/Main/Games/Portal2D/WhiteWall.png";
+const char WHITE_WALL_PATH[] = "../WhiteWall.png";
 
-const char BLACK_WALL_PATH[] = "/home/artem/Main/Games/Portal2D/BlackWall2.png";
+const char BLACK_WALL_PATH[] = "../BlackWall2.png";
 
-const char BOX_TEXTURE_PATH[] = "/home/artem/Main/Games/Portal2D/BoxTexture.png";
+const char BOX_TEXTURE_PATH[] = "../BoxTexture.png";
 
 std::vector<GrElem*>*   GrElems   = new std::vector<GrElem*>();
 std::vector<PhysElem*>* PhysElems = new std::vector<PhysElem*>();

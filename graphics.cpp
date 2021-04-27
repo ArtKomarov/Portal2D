@@ -9,10 +9,10 @@
 #include "graphics.h"
 #include "grelem.h"
 
-const char START_TEXTURE_PATH[] = "/home/artem/Main/Games/Portal2D/StartScreen3.png";
-const char FINISH_TEXTURE_PATH[] = "/home/artem/Main/Games/Portal2D/FinishScreen.jpg";
+const char START_TEXTURE_PATH[] = "../StartScreen3.png";
+const char FINISH_TEXTURE_PATH[] = "../FinishScreen.jpg";
 
-const char FINISH_AUDIO_PATH[] = "/home/artem/Main/Games/Portal2D/DidIt.wav";
+const char FINISH_AUDIO_PATH[] = "../DidIt.wav";
 
 //graphics::graphics() :
 //    window_(new sf::RenderWindow(sf::VideoMode(800, 800), "SFML works!")),
