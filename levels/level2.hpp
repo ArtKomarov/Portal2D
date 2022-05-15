@@ -1,21 +1,37 @@
 #ifndef LEVEL2_HPP
 #define LEVEL2_HPP
 
-const char AUDIO_PATH[] = "Sound/Portal2-04-The_Courtesy_Call.ogg";
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
 
-const char GLOBAL_TEXTURE_PATH[] = "Images/Stuff.png";
+#include <string>
+#include "levels/levels_common.h"
 
-const char PORT_AND_DOOR_TEXTURE_PATH[] = "Images/Portals_Doors2.png";
+#include "graphics.h"
+#include "manager.h"
+#include "hero.h"
+#include "boundary.h"
+#include "portal.h"
+#include "finaldoor.h"
+#include "box.h"
 
-const char WINDOW_TEXTURE_PATH[] = "Images/Background2/Background2.png";
+int level2() {
 
-const char HERO_TEXTURE_PATH[] = "Images/HeroRunSprite.png";
+const std::string AUDIO_PATH = SOUNDS_PATH + "Portal2-04-The_Courtesy_Call.ogg";
 
-const char WHITE_WALL_PATH[] = "Images/WhiteWall.png";
+const std::string GLOBAL_TEXTURE_PATH = IMAGES_PATH + "Stuff.png";
 
-const char BLACK_WALL_PATH[] = "Images/BlackWall2.png";
+const std::string PORT_AND_DOOR_TEXTURE_PATH = IMAGES_PATH + "Portals_Doors2.png";
 
-const char BOX_TEXTURE_PATH[] = "Images/BoxTexture.png";
+const std::string WINDOW_TEXTURE_PATH = IMAGES_PATH + "Background2/Background2.png";
+
+const std::string HERO_TEXTURE_PATH = IMAGES_PATH + "HeroRunSprite.png";
+
+const std::string WHITE_WALL_PATH = IMAGES_PATH + "WhiteWall.png";
+
+const std::string BLACK_WALL_PATH = IMAGES_PATH + "BlackWall2.png";
+
+const std::string BOX_TEXTURE_PATH = IMAGES_PATH + "BoxTexture.png";
 
 std::vector<GrElem*>*   GrElems   = new std::vector<GrElem*>();
 std::vector<PhysElem*>* PhysElems = new std::vector<PhysElem*>();
@@ -252,5 +268,8 @@ for(auto& b : *boundarySprites) {
 delete boundarySprites;
 delete PhysElems;
 delete GrElems;
+
+return 0;
+}
 
 #endif // LEVEL2_HPP

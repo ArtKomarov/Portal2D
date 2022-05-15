@@ -6,13 +6,15 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
+#include "common.h"
 #include "graphics.h"
 #include "grelem.h"
 
-const char START_TEXTURE_PATH[] = "../StartScreen3.png";
-const char FINISH_TEXTURE_PATH[] = "../FinishScreen.jpg";
 
-const char FINISH_AUDIO_PATH[] = "../DidIt.wav";
+const std::string START_TEXTURE_PATH = IMAGES_PATH + "StartScreen3.png";
+const std::string FINISH_TEXTURE_PATH = IMAGES_PATH + "FinishScreen.jpg";
+
+const std::string FINISH_AUDIO_PATH = SOUNDS_PATH + "DidIt.wav";
 
 //graphics::graphics() :
 //    window_(new sf::RenderWindow(sf::VideoMode(800, 800), "SFML works!")),

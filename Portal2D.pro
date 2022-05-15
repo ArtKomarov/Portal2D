@@ -4,8 +4,13 @@ CONFIG -= app_bundle
 CONFIG -= qt
 QMAKE_CXXFLAGS += -Wall -Wextra
 
+INCLUDEPATH += \
+    src/
+    levels/
+
 SOURCES += \
 #    src/*
+    levels/levels_common.cpp \
     src/boundary.cpp \
     src/box.cpp \
     src/finaldoor.cpp \
@@ -21,8 +26,10 @@ SOURCES += \
 HEADERS += \
 #    src/*
 #    levels/*
+    levels/levels_common.h \
     src/boundary.h \
     src/box.h \
+    src/common.h \
     src/finaldoor.h \
     src/graphics.h \
     src/physics.h \

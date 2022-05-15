@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "common.h"
 #include "hero.h"
 #include "graphics.h"
 #include "boundary.h"

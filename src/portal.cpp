@@ -2,6 +2,7 @@
 
 #include <SFML/Audio.hpp>
 
+#include "common.h"
 #include "portal.h"
 #include "boundary.h"
 
@@ -18,8 +19,8 @@
 //    MoveAbility_ = PORTAL;
 //}
 
-const char BLUE_AUDIO_PATH[] = "Sound/BlueFire.wav";
-const char ORANGE_AUDIO_PATH[] = "Sound/OrangeFire.wav";
+const std::string BLUE_AUDIO_PATH = SOUNDS_PATH + "BlueFire.wav";
+const std::string ORANGE_AUDIO_PATH = SOUNDS_PATH + "OrangeFire.wav";
 
 Portal::Portal(int type, sf::Texture* texture, sf::Sprite* sprite, Hero *hero) :
     PhysElem(texture, sprite),
@@ -37,13 +38,13 @@ Portal::Portal(int type, sf::Texture* texture, sf::Sprite* sprite, Hero *hero) :
 
     this->setPosition(sf::Vector2f(0, 0));
 
-    char* audioPath = nullptr;
+    std::string audioPath;
 
     if(Type_ == BLUE) {
-        audioPath = const_cast<char*>(BLUE_AUDIO_PATH);
+        audioPath = BLUE_AUDIO_PATH;
     }
     else {
-        audioPath = const_cast<char*>(ORANGE_AUDIO_PATH);
+        audioPath = ORANGE_AUDIO_PATH;
     }
 
     soundBuff_.loadFromFile(audioPath);

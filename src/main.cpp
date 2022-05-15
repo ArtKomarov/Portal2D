@@ -11,8 +11,8 @@
 #include "finaldoor.h"
 #include "box.h"
 
-void CreateBoundary(int type, sf::Texture* texture, int width, int height,
-                    float posX, float posY, std::vector<GrElem*>* container, std::vector<sf::Sprite*>* boundarySprites);
+#include "levels/level1.hpp"
+#include "levels/level2.hpp"
 
 int main() {
     std::cout << "Enter level number: 1 or 2." << std::endl;
@@ -24,23 +24,11 @@ int main() {
     }
 
     if(lvl == 1) {
-#include "level1.hpp"
-    }
-        else {
-#include "level2.hpp"
+        level1();
+    } else {
+        level2();
     }
 
     return 0;
 }
 
-void CreateBoundary(int type, sf::Texture* texture, int width, int height,
-                    float posX, float posY, std::vector<GrElem*>* container, std::vector<sf::Sprite*>* boundarySprites) {
-
-    sf::Sprite* sprite = new sf::Sprite(*texture, sf::IntRect(0, 0, width, height));
-    boundarySprites->push_back(sprite);
-
-    Boundary* b = new Boundary(type, texture, sprite);
-    b->setPosition(sf::Vector2f(posX, posY));
-
-    container->push_back(b);
-}
